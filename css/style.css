@@ -1,0 +1,9 @@
+.tab-form.active,
+#tab-1:checked ~ #gallery-preview,
+#tab-2:checked ~ #gallery-all {
+    display: block;
+}
+
+.gallery {
+    display: none;
+}
