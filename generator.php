@@ -5,8 +5,20 @@ if(isset($_GET['name'])&isset($_GET['size'])) {
 
     $size = $_GET['size'];
     $name = $_GET['name'];
+
+    $directory = __DIR__ . '/gallery/';
+    $images = array_diff(scandir($directory), array('..', '.')); // Все изображения в галерее
+
+    foreach ($images as $key => $img) {
+        $info = pathinfo($img);
+        $filename = basename($img,'.'.$info['extension']);
+        if ($name == $filename){
+            $name = $img;
+        }
+    }
+
     // Галерея изображений
-    $src = __DIR__ . '/gallery/' . $_GET['name'];
+    $src = __DIR__ . '/gallery/' . $name;
     // Размер изображения по запросу
     $query = "select size_w, size_h from winestyle_size where name='$size'";
     $result = $mysqli->query($query)->fetch_assoc();

@@ -12,22 +12,27 @@ $link = 'http://winestyle/generator.php?name='; // Ссылка на изобр�
 
 // Фильтр
   $extensions = ['.bmp', '.jpg', '.jpeg', '.gif', '.png'];
-  $array1 = [];
+  $array = [];
+  $filename = [];
   $k=0;
-  foreach ($images as $key => $img) {
+  foreach ($images as $img) {
+      $info = pathinfo($img);
+      $filename[$k] = basename($img,'.'.$info['extension']);
       $img = strtolower(strrchr($img, '.'));
-      $array1= [$key => $img];
+      $array[$k] = $img;
       $k++;
   }
-  $dif = array_diff($array1, $extensions);
+
+  $dif = array_diff($array, $extensions);
   foreach ($images as $key1 => $img){
       foreach ($dif as $key2 => $dif2){
-          if ($key1==$key2){unset($images[$key]);}
+          if ($key1==$key2){
+              unset($images[$key1]);
+              unset($filename[$key1]);
+          }
       }
   }
-
-$gallery = array_chunk($images, 3);
-
+$gallery = array_chunk($filename, 3);
 ?>
     <a href="/">Сбросить</a>
     <input type="radio" id="tab-1" name="tabs" checked>
