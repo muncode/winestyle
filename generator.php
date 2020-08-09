@@ -6,10 +6,10 @@ if(isset($_GET['name'])&isset($_GET['size'])) {
     $size = $_GET['size'];
     $name = $_GET['name'];
 
+    // Поиск файла с расширением по названию изображения из GET запроса
     $directory = __DIR__ . '/gallery/';
     $images = array_diff(scandir($directory), array('..', '.')); // Все изображения в галерее
-
-    foreach ($images as $key => $img) {
+    foreach ($images as $img) {
         $info = pathinfo($img);
         $filename = basename($img,'.'.$info['extension']);
         if ($name == $filename){
