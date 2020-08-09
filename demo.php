@@ -16,13 +16,14 @@ $link = 'http://winestyle/generator.php?name='; // Ссылка на изобр�
   $filename = [];
   $k=0;
   foreach ($images as $img) {
+      // Извлечение имени файла
       $info = pathinfo($img);
       $filename[$k] = basename($img,'.'.$info['extension']);
       $img = strtolower(strrchr($img, '.'));
       $array[$k] = $img;
       $k++;
   }
-
+// Удаление из массива файлов не являющихся изображением
   $dif = array_diff($array, $extensions);
   foreach ($images as $key1 => $img){
       foreach ($dif as $key2 => $dif2){
